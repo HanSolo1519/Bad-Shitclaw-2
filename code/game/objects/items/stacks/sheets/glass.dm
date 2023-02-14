@@ -96,8 +96,8 @@ GLOBAL_LIST_INIT(glass_recipes, list ( \
 
 
 GLOBAL_LIST_INIT(pglass_recipes, list ( \
-	new/datum/stack_recipe("directional window", /obj/structure/window/plasma/unanchored, time = 0, on_floor = TRUE, window_checks = TRUE), \
-	new/datum/stack_recipe("fulltile window", /obj/structure/window/plasma/fulltile/unanchored, 2, time = 0, on_floor = TRUE, window_checks = TRUE) \
+	new/datum/stack_recipe("directional window", /obj/structure/window/plasma/unanchored, time = 30, on_floor = TRUE, window_checks = TRUE), \
+	new/datum/stack_recipe("fulltile window", /obj/structure/window/plasma/fulltile/unanchored, 2, time = 30, on_floor = TRUE, window_checks = TRUE) \
 ))
 
 /obj/item/stack/sheet/plasmaglass
@@ -150,8 +150,8 @@ GLOBAL_LIST_INIT(pglass_recipes, list ( \
 GLOBAL_LIST_INIT(reinforced_glass_recipes, list ( \
 	new/datum/stack_recipe("windoor frame", /obj/structure/windoor_assembly, 5, time = 0, on_floor = TRUE, window_checks = TRUE), \
 	null, \
-	new/datum/stack_recipe("directional reinforced window", /obj/structure/window/reinforced/unanchored, time = 0, on_floor = TRUE, window_checks = TRUE), \
-	new/datum/stack_recipe("fulltile reinforced window", /obj/structure/window/reinforced/fulltile/unanchored, 2, time = 0, on_floor = TRUE, window_checks = TRUE) \
+	new/datum/stack_recipe("directional reinforced window", /obj/structure/window/reinforced/unanchored, time = 30, on_floor = TRUE, window_checks = TRUE), \
+	new/datum/stack_recipe("fulltile reinforced window", /obj/structure/window/reinforced/fulltile/unanchored, 2, time = 30, on_floor = TRUE, window_checks = TRUE) \
 ))
 
 
@@ -185,9 +185,11 @@ GLOBAL_LIST_INIT(reinforced_glass_recipes, list ( \
 /obj/item/stack/sheet/rglass/cyborg/get_amount()
 	return min(round(source.energy / metcost), round(glasource.energy / glacost))
 
-/obj/item/stack/sheet/rglass/cyborg/use(used, transfer = FALSE) // Requires special checks, because it uses two storages
-	source.use_charge(used * metcost)
-	glasource.use_charge(used * glacost)
+/obj/item/stack/sheet/rglass/cyborg/use(used, transfer = FALSE, check = TRUE) // Requires special checks, because it uses two storages
+	if(get_amount(used)) //ensure we still have enough energy if called in a do_after chain
+		source.use_charge(used * cost)
+		glasource.use_charge(used * glacost)
+		return TRUE
 
 /obj/item/stack/sheet/rglass/cyborg/add(amount)
 	source.add_charge(amount * metcost)
@@ -198,8 +200,8 @@ GLOBAL_LIST_INIT(reinforced_glass_recipes, list ( \
 	. += GLOB.reinforced_glass_recipes
 
 GLOBAL_LIST_INIT(prglass_recipes, list ( \
-	new/datum/stack_recipe("directional reinforced window", /obj/structure/window/plasma/reinforced/unanchored, time = 0, on_floor = TRUE, window_checks = TRUE), \
-	new/datum/stack_recipe("fulltile reinforced window", /obj/structure/window/plasma/reinforced/fulltile/unanchored, 2, time = 0, on_floor = TRUE, window_checks = TRUE) \
+	new/datum/stack_recipe("directional reinforced window", /obj/structure/window/plasma/reinforced/unanchored, time = 30, on_floor = TRUE, window_checks = TRUE), \
+	new/datum/stack_recipe("fulltile reinforced window", /obj/structure/window/plasma/reinforced/fulltile/unanchored, 2, time = 30, on_floor = TRUE, window_checks = TRUE) \
 ))
 
 /obj/item/stack/sheet/plasmarglass
@@ -225,7 +227,7 @@ GLOBAL_LIST_INIT(prglass_recipes, list ( \
 	S.efficiency *= 1.2
 
 GLOBAL_LIST_INIT(titaniumglass_recipes, list(
-	new/datum/stack_recipe("shuttle window", /obj/structure/window/shuttle/unanchored, 2, time = 0, on_floor = TRUE, window_checks = TRUE)
+	new/datum/stack_recipe("shuttle window", /obj/structure/window/shuttle/unanchored, 2, time = 30, on_floor = TRUE, window_checks = TRUE)
 	))
 
 /obj/item/stack/sheet/titaniumglass
@@ -249,7 +251,7 @@ GLOBAL_LIST_INIT(titaniumglass_recipes, list(
 	S.efficiency *= 1.5
 
 GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
-	new/datum/stack_recipe("plastitanium window", /obj/structure/window/plastitanium/unanchored, 2, time = 0, on_floor = TRUE, window_checks = TRUE)
+	new/datum/stack_recipe("plastitanium window", /obj/structure/window/plastitanium/unanchored, 2, time = 30, on_floor = TRUE, window_checks = TRUE)
 	))
 
 /obj/item/stack/sheet/plastitaniumglass

@@ -161,7 +161,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	spawn_positions = 1
 	description = "You are the commanding officer of your company and direct superior to the Veteran Ranger and Lieutenant. Coordinating with your staff, you must ensure that the objectives of High Command are completed to the letter. Working closely with your subordinates on logistics, mission planning and special operations with the Rangers, you are here to establish a strong foothold for the NCR within the region."
 	supervisors = "the Colonel"
-	exp_requirements = 1500
+	exp_requirements = 600
 	
 	outfit = /datum/outfit/job/ncr/f13captain
 
@@ -190,9 +190,10 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	backpack_contents = list(
 		/obj/item/storage/bag/money/small/ncr = 1,
 		/obj/item/megaphone = 1,
-		/obj/item/reagent_containers/hypospray/medipen/stimpak/super = 1,
+		/obj/item/reagent_containers/hypospray/medipen/stimpak/super = 3,
 		/obj/item/lighter = 1,
 		/obj/item/reagent_containers/food/snacks/grown/tobacco/dried = 1,
+		/obj/item/storage/lockbox/medal = 1,
 		/obj/item/melee/onehanded/knife/trench = 1
 		)
 
@@ -236,7 +237,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	spawn_positions = 1
 	description = "You are the direct superior to the NCOs and Enlisted, and under special circumstances, Rangers. You are the XO of Camp Miller. You plan patrols, training and missions, working in some cases with Rangers in accomplishing objectives otherwise beyond the capabilities of ordinary enlisted personnel."
 	supervisors = "the Captain"
-	exp_requirements = 1000
+	exp_requirements = 600
 	
 	outfit = /datum/outfit/job/ncr/f13lieutenant
 
@@ -263,7 +264,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 		/obj/item/ammo_box/magazine/m9mmds = 3,
 		/obj/item/storage/bag/money/small/ncrofficers = 1,
 		/obj/item/ammo_box/magazine/garand308 = 1,
-		/obj/item/reagent_containers/hypospray/medipen/stimpak/super = 1,
+		/obj/item/reagent_containers/hypospray/medipen/stimpak = 2,
 		/obj/item/storage/box/ration/menu_five = 1
 		)
 
@@ -274,7 +275,6 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	ADD_TRAIT(H, TRAIT_GENERIC, src)
 	ADD_TRAIT(H, TRAIT_SELF_AWARE, src)
 	ADD_TRAIT(H, TRAIT_HARD_YARDS, src)
-	ADD_TRAIT(H, TRAIT_LIFEGIVER, src)
 
 
 // SERGEANT
@@ -287,14 +287,13 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	spawn_positions = 3
 	description = "You are the direct superior to the enlisted troops, working with the chain of command you echo the orders of your superiors and ensure that the enlisted follow them to the letter. Additionally, you are responsible for the wellbeing of the troops and their ongoing training with the NCR."
 	supervisors = "Lieutenant and Above"
-	exp_requirements = 1000
 	
 	outfit = /datum/outfit/job/ncr/f13sergeant
 
-	access = list(ACCESS_NCR, ACCESS_NCR_ARMORY, ACCESS_NCR_COMMAND)
+	access = list(ACCESS_NCR, ACCESS_NCR_ARMORY, ACCESS_NCR1, ACCESS_NCR2, ACCESS_NCR_COMMAND, ACCESS_PUBLIC)
 
-	loadout_options = list( // ALL: Bayonet, M1911 sidearm
-		/datum/outfit/loadout/sergeantrifleman, // Scout Carbine, Mantle Armor
+	loadout_options = list(
+		/datum/outfit/loadout/sergeantrifleman, // Marksman Carbine, Mantle Armor
 		/datum/outfit/loadout/sergeantcqc // Trench Shotgun, Trench Armor
 		)
 
@@ -306,17 +305,16 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	gloves = /obj/item/clothing/gloves/f13/leather/fingerless
 	neck = /obj/item/storage/belt/holster/legholster
 	backpack_contents = list(
-		/obj/item/storage/bag/money/small/ncrofficers = 1,
-		/obj/item/reagent_containers/hypospray/medipen/stimpak/super = 1
+		/obj/item/storage/bag/money/small/ncrofficers = 1
 		)
 
 /datum/outfit/loadout/sergeantrifleman
 	name = "Lead Rifleman"
-	suit_store = /obj/item/gun/ballistic/automatic/service/carbine
+	suit_store = /obj/item/gun/ballistic/automatic/marksman
 	head = /obj/item/clothing/head/f13/ncr
 	suit = /obj/item/clothing/suit/armor/f13/ncrarmor/mantle/reinforced
 	backpack_contents = list(
-		/obj/item/ammo_box/magazine/m556/rifle/extended = 2,
+		/obj/item/ammo_box/magazine/m556/rifle = 2,
 		/obj/item/storage/box/ration/menu_one = 1,
 		/obj/item/melee/onehanded/knife/bowie = 1
 		)
@@ -329,19 +327,11 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	backpack_contents = list(
 		/obj/item/storage/box/ration/menu_eleven = 1,
 		/obj/item/ammo_box/shotgun/buck = 2,
+		/obj/item/ammo_box/shotgun/incendiary = 1,
 		/obj/item/clothing/mask/gas = 1,
 		/obj/item/grenade/smokebomb = 2,
 		/obj/item/melee/onehanded/knife/trench = 1
 		)
-
-/datum/outfit/job/ncr/f13sergeant/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	..()
-	if(visualsOnly)
-		return
-	ADD_TRAIT(H, TRAIT_GENERIC, src)
-	ADD_TRAIT(H, TRAIT_SELF_AWARE, src)
-	ADD_TRAIT(H, TRAIT_LIFEGIVER, src)
-	ADD_TRAIT(H, TRAIT_HARD_YARDS, src)
 
 // REPRESENATIVE
 
@@ -353,7 +343,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	spawn_positions = 1
 	description = "You are an influential representative for the NCR and experienced bureaucrat. You are here to further the objective and ensure the interests of the NCR, your company or own enterprise are met through thick and thin, and have been supplied with ample amounts of money to do so."
 	supervisors = "the Captain and the NCR"
-	exp_requirements = 1500
+	exp_requirements = 300
 
 	outfit = /datum/outfit/job/ncr/f13representative
 
@@ -425,7 +415,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	spawn_positions = 1
 	description = "You answer directly to the Captain, working either independently or in a team to complete your mission objectives however required, operating either alone, in a squad or with the NCR Army. Your primary mission is to improve general opinion of the Republic and to neutralize slavers and raiders operating in the area."
 	supervisors = "the NCRA Captain and High Command"
-	exp_requirements = 3000
+	exp_requirements = 1200
 
 	outfit = /datum/outfit/job/ncr/f13vetranger
 	
@@ -457,7 +447,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 		/obj/item/melee/onehanded/knife/bowie = 1,
 		/obj/item/storage/survivalkit_aid_adv = 1,
 		/obj/item/storage/bag/money/small/ncrofficers = 1,
-		/obj/item/reagent_containers/hypospray/medipen/stimpak/super = 2,
+		/obj/item/reagent_containers/hypospray/medipen/stimpak = 3,
 		/obj/item/grenade/smokebomb = 1,
 		/obj/item/ammo_box/c4570 = 3
 		)
@@ -508,14 +498,14 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	spawn_positions = 3
 	description = "As an NCR Ranger, you are the premier special forces unit of the NCR. You are the forward observations and support the Army in it's campaigns, as well as continuing the tradition of stopping slavery in it's tracks."
 	supervisors = "the Veteran Ranger"
-	exp_requirements = 1000
+	exp_requirements = 150
 	
 	outfit = /datum/outfit/job/ncr/f13ranger
 
 	loadout_options = list( // ALL: Binoculars, Bowie knife
-	/datum/outfit/loadout/rangerrecon,
-	/datum/outfit/loadout/rangertrail,
-	/datum/outfit/loadout/rangerpatrol
+	/datum/outfit/loadout/rangerrecon, // Scout Carbine, .45 Revolver
+	/datum/outfit/loadout/rangertrail, // Cowboy Repeater, .357 Revolver
+	/datum/outfit/loadout/rangerpatrol // Browning Auto-5, .44 snub revolver
 	)
 
 /datum/outfit/job/ncr/f13ranger
@@ -545,7 +535,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	belt = /obj/item/storage/belt/military/reconbandolier
 	head = /obj/item/clothing/head/beret/ncr_recon_ranger
 	neck = /obj/item/clothing/neck/mantle/ranger
-	suit_store = /obj/item/gun/ballistic/automatic/marksman
+	suit_store = /obj/item/gun/ballistic/automatic/service/carbine
 	backpack_contents = list(
 		/obj/item/storage/box/ration/ranger_dinner = 1,
 		/obj/item/ammo_box/magazine/m556/rifle = 3,
@@ -604,7 +594,6 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	spawn_positions = 1
 	description = "You are the most elite of the enlisted, sergeant in rank but forgoing regular command roles to lead in battle only. You are expected to be on the frontlines of every engagement, and to provide firing support for the rank and file. Your power armor lacks the protection the full working sets have, but you have trained with it and can use it in battle well. General Oliver praises you and your other Heavy Troopers, prove to him you're no exception to the rule."
 	supervisors = "Lieutenant and Above"
-	exp_requirements = 750	
 	
 	outfit = /datum/outfit/job/ncr/f13heavytrooper
 
@@ -625,7 +614,6 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	head = /obj/item/clothing/head/helmet/f13/heavy/salvaged_pa/t45b/ncr
 	neck = /obj/item/storage/belt/holster/legholster
 	suit = /obj/item/clothing/suit/armored/heavy/salvaged_pa/t45b/ncr
-	l_hand = /obj/item/minigunpackbal5mm
 	backpack_contents = list(
 		/obj/item/gun/ballistic/automatic/pistol/mk23 = 1,
 		/obj/item/ammo_box/magazine/m45exp = 2,
@@ -666,7 +654,6 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	spawn_positions = 2
 	description = "You are a senior enlisted trooper with an engineering skill set. You work closely with your squad, taking orders from the officers. You have the authority to command troopers if there are no non-commissioned officers present."
 	supervisors = "Corporals and Above"
-	exp_requirements = 120
 
 	outfit = /datum/outfit/job/ncr/f13combatengineer
 
@@ -685,11 +672,11 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	uniform = /obj/item/clothing/under/f13/ncr
 	head = /obj/item/clothing/head/hardhat/ncr
 	suit = /obj/item/clothing/suit/armor/f13/ncrarmor/reinforced/engineer
-	glasses = /obj/item/clothing/glasses/sunglasses
+	glasses = /obj/item/clothing/glasses/welding
 	belt = /obj/item/storage/belt/military/assault/ncr/engineer
 	gloves = /obj/item/clothing/gloves/color/yellow
 	accessory =	/obj/item/clothing/accessory/armband/engine/ncr
-	belt = null
+	belt = /obj/item/storage/belt/utility
 	backpack_contents = list(
 		/obj/item/shovel/trench = 1,
 		/obj/item/storage/bag/money/small/ncrenlisted = 1,
@@ -699,7 +686,6 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 
 /datum/outfit/loadout/combatengineerflamethrower
 	name = "Flamethrower Unit"
-	glasses = /obj/item/clothing/glasses/welding
 	suit_store = /obj/item/gun/ballistic/automatic/pistol/ninemil
 	backpack_contents = list(
 		/obj/item/storage/box/ration/menu_three = 1,
@@ -785,7 +771,6 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	spawn_positions = 2
 	description = "You are a senior enlisted with a medical skill set. You work closely with your squad, taking orders from your officers. You have the authority to command troopers if there are no non-commissioned officers present."
 	supervisors = "Corporals and Above"
-	exp_requirements = 120
 
 	outfit = /datum/outfit/job/ncr/f13combatmedic
 
@@ -806,7 +791,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 		/obj/item/ammo_box/magazine/m556/rifle = 2,
 		/obj/item/storage/firstaid/ancient = 1,
 		/obj/item/healthanalyzer/advanced = 1,
-		/obj/item/reagent_containers/hypospray/medipen/stimpak/super = 2,
+		/obj/item/reagent_containers/hypospray/medipen/stimpak = 1,
 		/obj/item/clothing/glasses/hud/health = 1,
 		/obj/item/storage/box/ration/menu_ten = 1
 		)
@@ -833,7 +818,6 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	spawn_positions = 3
 	description = "You are a junior NCO. You are expected to lead from the frontlines with your sergeant. Keep the troopers in order and keep your squad coherent."
 	supervisors = "Sergeant and above"
-	exp_requirements = 180
 	
 	outfit = /datum/outfit/job/ncr/f13corporal
 
@@ -849,17 +833,12 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	id = /obj/item/card/id/dogtag/ncrtrooper
 	accessory = /obj/item/clothing/accessory/ncr/CPL
 	suit = /obj/item/clothing/suit/armor/f13/ncrarmor/mantle
-	suit_store = /obj/item/gun/ballistic/automatic/m1carbine/m1n
 	neck = /obj/item/storage/belt/holster/legholster
 	head = /obj/item/clothing/head/f13/ncr/steelpot_goggles
 	backpack_contents = list(
 		/obj/item/melee/onehanded/knife/bayonet = 1,
 		/obj/item/storage/bag/money/small/ncrenlisted = 1,
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 1,
-		/obj/item/ammo_box/magazine/m10mm_adv/ext = 2,
-		/obj/item/binoculars = 1,
-		/obj/item/gun/ballistic/automatic/pistol/ninemil = 1,
-		/obj/item/ammo_box/magazine/m9mmds = 1,
 		/obj/item/storage/box/ration/menu_one = 1
 		)
 
@@ -889,13 +868,6 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 		/obj/item/attachments/scope = 1,
 		/obj/item/storage/box/ration/menu_four = 1
 		)
-
-
-/datum/outfit/job/ncr/f13corporal/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	. = ..()
-	if(visualsOnly)
-		return
-	ADD_TRAIT(H, TRAIT_HARD_YARDS, src)
 
 // TROOPER
 
@@ -960,7 +932,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	spawn_positions = 1
 	description = "You are the lead medical professional in Camp Miller, you do not have any command authority unless it is of medical nature. Your duties are to ensure your troopers are in good health and that medical supplies are stocked for troopers."
 	supervisors = "Lieutenant and Above"
-	exp_requirements = 1500
+	exp_requirements = 300
 
 	outfit = /datum/outfit/job/ncr/f13medicalofficer
 
@@ -995,9 +967,9 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	. = ..()
 	if(visualsOnly)
 		return
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/medx)
 	ADD_TRAIT(H, TRAIT_CHEMWHIZ, src)
 	ADD_TRAIT(H, TRAIT_SURGERY_HIGH, src)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/medx)
 
 // OFF-DUTY
 
@@ -1005,12 +977,10 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	title = "NCR Off-Duty"
 	flag = F13OFFDUTYNCR
 	display_order = JOB_DISPLAY_ORDER_OFFDUTYNCR
-	exp_type = EXP_TYPE_FALLOUT
 	total_positions = 4
 	spawn_positions = 4
 	description = "While off-duty, you are relieved of both your duties and your authority. You are not required to participate in any routine duties, and you may spend your time doing whatever you please, within reason. However, you may not get in the way of on-duty personnel. Do not pull rank or give orders. Should Camp Miller be attacked, you are expected NOT to participate in the fighting, and must instead head West for safety (i.e. despawn yourself at the matrix point)."
 	supervisors = "Everyone else"
-	exp_requirements = 60
 
 	outfit = /datum/outfit/job/ncr/f13offdutyncr
 
